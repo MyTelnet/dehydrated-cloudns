@@ -52,7 +52,7 @@ deploy_challenge() {
     do_request \
         /dns/add-record.json \
         "domain-name=${domain}&record-type=TXT&host=_acme-challenge${prefix:+.${prefix}}&record=${2}&ttl=60" \
-        | grep -i success &> /dev/null
+        | tac | tac |grep -i success &> /dev/null
     echo "  + waiting for propagation ..."
     sleep 5
     while ! do_request /dns/is-updated.json "domain-name=${domain}" | tac | tac | grep -i true &> /dev/null; do
