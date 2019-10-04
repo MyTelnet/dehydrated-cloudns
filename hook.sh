@@ -55,7 +55,7 @@ deploy_challenge() {
         | grep -i success &> /dev/null
     echo "  + waiting for propagation ..."
     sleep 5
-    while ! do_request /dns/is-updated.json "domain-name=${domain}" | grep -i true &> /dev/null; do
+    while ! do_request /dns/is-updated.json "domain-name=${domain}" | tac | grep -i true &> /dev/null; do
         echo "  + waiting for propagation ..."
         sleep 30
     done
