@@ -39,7 +39,7 @@ do_request() {
     fi
     args="${args}&auth-password=${CLOUDNS_AUTH_PASSWORD}&${2}"
     curl \
-        --silent \
+        -v -4 \
         "https://api.cloudns.net${1}?${args}"
 }
 
