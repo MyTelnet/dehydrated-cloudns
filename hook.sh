@@ -71,7 +71,7 @@ clean_challenge() {
         do_request \
             /dns/records.json \
             "domain-name=${domain}" \
-            | jq -r \
+            | tac | tac | jq -r \
                 "to_entries | map(.value) | .[] | select(.type == \"TXT\" and .host == \"_acme-challenge${prefix:+.${prefix}}\" and .record == \"${2}\") | .id"
     )
     test -z "${txt_id}" && return 1
@@ -80,7 +80,7 @@ clean_challenge() {
         do_request \
             /dns/delete-record.json \
             "domain-name=${domain}&record-id=${record}" \
-            | grep -i success &> /dev/null
+            | tac | tac | grep -i success &> /dev/null
     done
 }
 
